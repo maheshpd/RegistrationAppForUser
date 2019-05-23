@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                         JSONObject c = array.getJSONObject(i);
                         String uqniceno = c.getString("uqniceno");
                         String name = c.getString("name");
-//                        Common.sessionValue = Integer.parseInt(c.getString("alocationno"));
+                        Common.sessionValue = Integer.parseInt(c.getString("allocation"));
                         SignleCoachDataModel signleCoachDataModel = new SignleCoachDataModel(name, uqniceno);
                         record.add(signleCoachDataModel);
                     }

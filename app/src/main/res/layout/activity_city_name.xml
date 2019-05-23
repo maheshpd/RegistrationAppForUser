@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_img"
     tools:context=".Activity.CityName">
 
 
@@ -11,8 +12,8 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="70dp"
-        android:contentDescription="null"
         android:background="@android:color/background_dark"
+        android:contentDescription="null"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Select Your City"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        android:background="@android:color/background_dark"
+        android:background="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -58,6 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="3"
+            android:background="#00FFFFFF"
             android:verticalSpacing="30dp" />
     </android.support.v4.widget.SwipeRefreshLayout>
 </android.support.constraint.ConstraintLayout>

@@ -53,7 +53,7 @@ public class SelectTagAdapter extends RecyclerView.Adapter<SelectTagAdapter.TagV
         String tf = list.get(position).getTf();
 
         if (tf.equals("True")) {
-            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.itemView.setBackgroundColor(Color.GREEN);
         } else {
             holder.itemView.setBackgroundColor(Color.RED);
         }

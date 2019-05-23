@@ -1,11 +1,16 @@
 package com.arfeenkhan.registerationappforUser.Activity;
 
 import android.app.ProgressDialog;
+import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.AbsListView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,7 +36,7 @@ public class SelectTag extends AppCompatActivity {
     RecyclerView tagRecycler;
     ArrayList<SelectTagModel> taglist;
     SelectTagAdapter tagAdapter;
-
+    TextView loadingTxt;
     String data_url = "http://magicconversion.com/barcodescanner/tagdata.php";
 
     StringRequest request;
@@ -40,6 +45,9 @@ public class SelectTag extends AppCompatActivity {
     String place;
 
     SwipeRefreshLayout swipeRefreshLayout;
+    Boolean isScrolling = false;
+    int currentItem, totalItems, scrollOutItems;
+    LinearLayoutManager llm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +62,8 @@ public class SelectTag extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
         tagRecycler = findViewById(R.id.select_tags);
         tagAdapter = new SelectTagAdapter(this, taglist);
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
+        loadingTxt = findViewById(R.id.loading_text);
+        llm = new LinearLayoutManager(this);
         tagRecycler.setLayoutManager(llm);
         tagRecycler.setAdapter(tagAdapter);
         tagRecycler.setHasFixedSize(true);
@@ -68,13 +76,53 @@ public class SelectTag extends AppCompatActivity {
             }
         });
 
+//        tagRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//
+//                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
+//                    isScrolling = true;
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                currentItem = llm.getChildCount();
+//                totalItems = llm.getItemCount();
+//                scrollOutItems = llm.findFirstVisibleItemPosition();
+//
+//                if (isScrolling && (currentItem + scrollOutItems == totalItems)) {
+//                    isScrolling = false;
+//                    fetchData();
+//                }
+//            }
+//        });
+
+
     }
+
+//    private void fetchData() {
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//
+//                for (int i = 0; i < 20; i++) {
+//                    loadingTxt.setVisibility(View.VISIBLE);
+//                    getData();
+//                    tagAdapter.notifyDataSetChanged();
+//                }
+//            }
+//        }, 4000);
+//    }
 
     private void getData() {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-
+        taglist.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest sr = new StringRequest(Request.Method.POST, data_url, new Response.Listener<String>() {
             @Override
@@ -94,6 +142,7 @@ public class SelectTag extends AppCompatActivity {
                         SelectTagModel stm = new SelectTagModel(name, place, tag, time, ctf, date, tf);
                         taglist.add(stm);
                         progressDialog.dismiss();
+                        loadingTxt.setVisibility(View.INVISIBLE);
                         tagAdapter.notifyDataSetChanged();
 
                     }

@@ -96,6 +96,7 @@ public class CityName extends AppCompatActivity {
                     for (int i = 0; i < arr.length(); i++) {
                         JSONObject c = arr.getJSONObject(i);
                         String cityname = c.getString("cityname");
+//                        String cityimgUrl = c.getString("imgUrl");
                         CityModel cityModel = new CityModel("mumbai", cityname);
                         citylist.add(cityModel);
                         cityAdapter.notifyDataSetChanged();

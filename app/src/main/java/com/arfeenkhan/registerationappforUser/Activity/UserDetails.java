@@ -1,6 +1,7 @@
 package com.arfeenkhan.registerationappforUser.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,8 +50,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class UserDetails extends AppCompatActivity {
 
@@ -67,6 +67,7 @@ public class UserDetails extends AppCompatActivity {
     String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
     public static String singleCoachDataUrl = "http://magicconversion.com/barcodescanner/singleuserdata.php";
     String getdatafromInfusionUrl = "http://magicconversion.com/barcodescanner/getcontact.php";
+    String allocationNum = "http://magicconversion.com/barcodescanner/getallocation.php";
     StringRequest sessionrequest, request;
     ArrayList<String> sessionlist = new ArrayList<>();
     public static ArrayList<SignleCoachDataModel> record = new ArrayList<>();
@@ -87,12 +88,12 @@ public class UserDetails extends AppCompatActivity {
     String allocationname;
     TextView tagsNo, totalNo, placename;
     ImageButton barcode_btn;
-   public static RecentAdapter adapter;
-
+    public static RecentAdapter adapter;
 
 
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences preferences;
+    Button newRegisterBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,14 +108,14 @@ public class UserDetails extends AppCompatActivity {
         edt_id = findViewById(R.id.user_id);
         edt_name = findViewById(R.id.user_name);
         edt_phone = findViewById(R.id.user_phone);
-        btn_submit = findViewById(R.id.submit);
+        btn_submit = findViewById(R.id.newSubmitBtn);
         addSessionName = findViewById(R.id.add_person);
         tagsNo = findViewById(R.id.txt_tag_no);
         totalNo = findViewById(R.id.txt_total_bo);
         placename = findViewById(R.id.txt_place_name);
         barcode_btn = findViewById(R.id.barcode_btn);
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
-
+        newRegisterBtn = findViewById(R.id.new_people);
         eventPeople = findViewById(R.id.eventpeople);
         adapter = new RecentAdapter(record, this);
         LinearLayoutManager lm = new LinearLayoutManager(this);
@@ -124,20 +125,6 @@ public class UserDetails extends AppCompatActivity {
         eventPeople.setAdapter(adapter);
         //start Widget
 
-//        //refress every 1 second for time
-//        Timer timer = new Timer();
-//        TimerTask timerTask;
-//        timerTask = new TimerTask() {
-//            @Override
-//            public void run() {
-//                //Time format
-//                SimpleDateFormat sdf = new SimpleDateFormat("h:mm:ss a");
-//                Common.time = sdf.format(new Date());
-//
-//            }
-//        };
-
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -146,16 +133,9 @@ public class UserDetails extends AppCompatActivity {
             }
         });
 
-//        timer.schedule(timerTask, 0, 500);
-//
-//        //change Date Format
         Date now = new Date();
         sdf = new SimpleDateFormat("MMM dd, yyyy");
         Common.timeStamp = sdf.format(now);
-
-//        preferences = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
-//        Common.sessionValue = preferences.getInt("sessionValue", Common.sessionValue);
-
         placename.setText("Place:" + Common.place);
         tagsNo.setText("Tag No: " + Common.tagno);
 
@@ -171,6 +151,13 @@ public class UserDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(UserDetails.this, SingleCoachData.class));
+            }
+        });
+
+        newRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(UserDetails.this, NewRegister.class));
             }
         });
 
@@ -193,28 +180,7 @@ public class UserDetails extends AppCompatActivity {
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.show();
 
-
-                    if (Common.sessionValue < sessionlist.size()) {
-                        Common.allocationname = sessionlist.get(Common.sessionValue);
-                        //Shared Preference for store session value
-//                        editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//                        editor.putInt("sessionValue", Common.sessionValue);
-                        Common.sessionValue++;
-//                        editor.apply();
-                        Log.d(TAG, "sessionValue " + Common.sessionValue);
-                        uploadFile();
-
-                    } else {
-                        Common.sessionValue = 0;
-                        Common.allocationname = sessionlist.get(Common.sessionValue);
-
-//                        Shared Preference for store session value
-//                        editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//                        editor.putInt("sessionValue", Common.sessionValue);
-                        Common.sessionValue++;
-//                        editor.apply();
-                        uploadFile();
-                    }
+                    getAllocationNum();
                 }
             }
         });
@@ -249,14 +215,19 @@ public class UserDetails extends AppCompatActivity {
                 if (hasFocus) {
                     sid = edt_id.getText().toString();
                     edt_id.requestFocus();
-                    getDataFromInfusion();
+
+                    if (edt_id.length() == 0) {
+                        Toast.makeText(UserDetails.this, "Enter all field", Toast.LENGTH_SHORT).show();
+                    } else {
+                        getDataFromInfusion();
+                    }
                 }
             }
         });
     }
 
     public void getDataFromInfusion() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
@@ -273,6 +244,9 @@ public class UserDetails extends AppCompatActivity {
                         Common.infusionUserPhone = c.getString("phone");
                         edt_name.setText(Common.infusionUsername);
                         edt_phone.setText(Common.infusionUserPhone);
+
+                        InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        in.hideSoftInputFromWindow(edt_phone.getApplicationWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                         progressDialog.dismiss();
                     }
                 } catch (JSONException e) {
@@ -308,8 +282,6 @@ public class UserDetails extends AppCompatActivity {
                         JSONObject c = arr.getJSONObject(i);
                         String name = c.getString("name");
                         sessionlist.add(name);
-//                        Common.allocationname = sessionlist.get(Common.sessionValue).toUpperCase();
-//                        allocationName.setText(Common.allocationname);
                     }
 
                 } catch (JSONException e) {
@@ -349,9 +321,16 @@ public class UserDetails extends AppCompatActivity {
                     edt_id.setText("");
                     edt_name.setText("");
                     edt_phone.setText("");
-                    insertData();
-                    getData();
-                    SingleData();
+                    if (message.equals("User Already Exists")) {
+                        Log.d(TAG, "onResponse: " + "User already Exists");
+                    } else {
+                        insertData();
+                        getData();
+                        SingleData();
+
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -372,7 +351,7 @@ public class UserDetails extends AppCompatActivity {
                 params.put("tm", Common.eventTimes);
                 params.put("coachname", Common.allocationname);
                 params.put("tagno", Common.tagno);
-                params.put("allocationno", String.valueOf(Common.sessionValue));
+                params.put("allocation", String.valueOf(Common.sessionValue));
                 return params;
             }
         };
@@ -447,16 +426,6 @@ public class UserDetails extends AppCompatActivity {
                     addContact();
                     //Make call - the result is an array of structs
                     contacts = (Object[]) client.execute("DataService.findByField", parameters3);
-
-
-//                    for (int i = 0; i < contacts.length; i++) {
-//                        Map contact = (Map) contacts[i];
-//                        progressDialog.dismiss();
-//                        mTotal_tperson.setText("Total No: " + String.valueOf(contacts.length));
-//                        Common.no0fpeoplelist.add(Common.longdata);
-
-//                    }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -573,7 +542,7 @@ public class UserDetails extends AppCompatActivity {
                         JSONObject c = array.getJSONObject(i);
                         String uqniceno = c.getString("uqniceno");
                         String name = c.getString("name");
-                        Common.sessionValue = Integer.parseInt(c.getString("alocationno"));
+                        Common.sessionValue = Integer.parseInt(c.getString("allocation"));
                         SignleCoachDataModel signleCoachDataModel = new SignleCoachDataModel(name, uqniceno);
                         record.add(signleCoachDataModel);
                     }
@@ -612,9 +581,51 @@ public class UserDetails extends AppCompatActivity {
         queue.add(sr);
     }
 
+    public void getAllocationNum() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest sr = new StringRequest(Request.Method.POST, allocationNum, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray array = new JSONArray(response);
+                    JSONObject c = array.getJSONObject(0);
+                    Common.sessionValue = Integer.parseInt(c.getString("allocation"));
+                    if (Common.sessionValue < sessionlist.size()) {
+                        Common.allocationname = sessionlist.get(Common.sessionValue);
+                        Common.sessionValue++;
+                        Log.d(TAG, "sessionValue " + Common.sessionValue);
+                        uploadFile();
+                    } else {
+                        Common.sessionValue = 0;
+                        Common.allocationname = sessionlist.get(Common.sessionValue);
+                        Common.sessionValue++;
+                        uploadFile();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("tagno", Common.tagno);
+                return param;
+            }
+        };
+
+        queue.add(sr);
+    }
+
     @Override
     protected void onResume() {
-//        edt_id.setText(Common.ScanNo);
         super.onResume();
     }
 }
