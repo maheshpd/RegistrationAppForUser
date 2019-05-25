@@ -139,7 +139,8 @@ public class SelectTag extends AppCompatActivity {
                         String time = c.getString("time");
                         String date = c.getString("date");
                         String tf = c.getString("tf");
-                        SelectTagModel stm = new SelectTagModel(name, place, tag, time, ctf, date, tf);
+                        String sessionname = c.getString("ss_name");
+                        SelectTagModel stm = new SelectTagModel(name, place, tag, time, ctf, date, tf, sessionname);
                         taglist.add(stm);
                         progressDialog.dismiss();
                         loadingTxt.setVisibility(View.INVISIBLE);

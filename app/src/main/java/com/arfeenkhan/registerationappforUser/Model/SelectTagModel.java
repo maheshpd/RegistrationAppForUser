@@ -2,10 +2,9 @@ package com.arfeenkhan.registerationappforUser.Model;
 
 public class SelectTagModel {
 
-    String name, place, tagno, time, ctf, date,Tf;
+    String name, place, tagno, time, ctf, date, Tf,sessionname;
 
-
-    public SelectTagModel(String name, String place, String tagno, String time, String ctf, String date, String tf) {
+    public SelectTagModel(String name, String place, String tagno, String time, String ctf, String date, String tf, String sessionname) {
         this.name = name;
         this.place = place;
         this.tagno = tagno;
@@ -13,6 +12,7 @@ public class SelectTagModel {
         this.ctf = ctf;
         this.date = date;
         Tf = tf;
+        this.sessionname = sessionname;
     }
 
     public String getName() {
@@ -69,5 +69,13 @@ public class SelectTagModel {
 
     public void setTf(String tf) {
         Tf = tf;
+    }
+
+    public String getSessionname() {
+        return sessionname;
+    }
+
+    public void setSessionname(String sessionname) {
+        this.sessionname = sessionname;
     }
 }

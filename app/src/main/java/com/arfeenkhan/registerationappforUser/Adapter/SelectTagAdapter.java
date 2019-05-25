@@ -51,9 +51,15 @@ public class SelectTagAdapter extends RecyclerView.Adapter<SelectTagAdapter.TagV
         final String tag = holder.mtags.getText().toString();
 
         String tf = list.get(position).getTf();
+        String sessionnane = stm.getSessionname();
 
-        if (tf.equals("True")) {
+        if (sessionnane.equals("True")) {
             holder.itemView.setBackgroundColor(Color.GREEN);
+            if (tf.equals("True")) {
+                holder.itemView.setBackgroundColor(Color.WHITE);
+            } else {
+                holder.itemView.setBackgroundColor(Color.GREEN);
+            }
         } else {
             holder.itemView.setBackgroundColor(Color.RED);
         }

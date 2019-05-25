@@ -593,7 +593,6 @@ public class UserDetails extends AppCompatActivity {
                     if (Common.sessionValue < sessionlist.size()) {
                         Common.allocationname = sessionlist.get(Common.sessionValue);
                         Common.sessionValue++;
-                        Log.d(TAG, "sessionValue " + Common.sessionValue);
                         uploadFile();
                     } else {
                         Common.sessionValue = 0;
