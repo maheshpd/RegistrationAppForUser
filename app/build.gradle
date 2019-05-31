@@ -7,8 +7,8 @@ android {
         applicationId "com.arfeenkhan.registerationappforUser"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 6
-        versionName "1.3"
+        versionCode 8
+        versionName "2.1"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

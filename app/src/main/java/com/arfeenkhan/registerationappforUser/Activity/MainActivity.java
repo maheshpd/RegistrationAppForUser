@@ -224,30 +224,19 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         final String myResult = result.getText();
         Common.ScanNo = myResult;
         Log.d(TAG, "Result: " + Common.ScanNo);
-//        getDataFromInfusion();
-
-
         AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("Is this Right Scan no? " +Common.ScanNo);
+        builder.setMessage("Is this Right Scan no? " + Common.ScanNo);
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (Common.sessionValue < sessionlist.size()) {
                     Common.allocationname = sessionlist.get(Common.sessionValue);
                     Common.sessionValue++;
-                    //Shared Preference for store session value
-//                    editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//                    editor.putInt("sessionValue", Common.sessionValue);
-//                    editor.apply();
                     getDataFromInfusion();
                 } else {
                     Common.sessionValue = 0;
                     Common.allocationname = sessionlist.get(Common.sessionValue);
                     Common.sessionValue++;
-                    //Shared Preference for store session value
-//                    editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
-//                    editor.putInt("sessionValue", Common.sessionValue);
-//                    editor.apply();
                     getDataFromInfusion();
                 }
             }
@@ -260,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
         });
         AlertDialog dialog = builder.create();
         dialog.show();
-//        finish();
+        finish();
         scannerView.resumeCameraPreview(MainActivity.this);
     }
 
@@ -564,6 +553,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 params.put("tm", Common.eventTimes);
                 params.put("coachname", Common.allocationname);
                 params.put("tagno", Common.tagno);
+                params.put("allocation", String.valueOf(Common.sessionValue));
                 return params;
             }
         };
