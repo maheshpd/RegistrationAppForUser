@@ -176,11 +176,17 @@ public class UserDetails extends AppCompatActivity {
                 } else if (TextUtils.isEmpty(sphone)) {
                     Toast.makeText(UserDetails.this, "Enter phoneno", Toast.LENGTH_SHORT).show();
                 } else {
-                    progressDialog.setMessage("Please wait...");
-                    progressDialog.setCanceledOnTouchOutside(false);
-                    progressDialog.show();
 
-                    getAllocationNum();
+                    if (sname.equals("null") && sphone.equals("null")) {
+                        Toast.makeText(UserDetails.this, "Enter valid name and phone number", Toast.LENGTH_SHORT).show();
+                    } else {
+
+                        progressDialog.setMessage("Please wait...");
+                        progressDialog.setCanceledOnTouchOutside(false);
+                        progressDialog.show();
+
+                        getAllocationNum();
+                    }
                 }
             }
         });
