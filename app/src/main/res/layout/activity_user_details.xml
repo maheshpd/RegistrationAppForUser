@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_img"
-    tools:context=".Activity.UserDetails">
+    tools:context=".activity.UserDetails">
 
 
     <RelativeLayout
@@ -94,10 +94,10 @@
             android:text="Attendee Details"
             android:textColor="@android:color/white"
             android:textSize="12sp"
-            android:visibility="invisible" />
+            android:visibility="visible" />
 
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/user_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     android:textSize="17sp" />
             </LinearLayout>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
         <LinearLayout
             android:id="@+id/linea"
@@ -200,7 +200,7 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -208,13 +208,13 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/eventpeople"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
     </RelativeLayout>

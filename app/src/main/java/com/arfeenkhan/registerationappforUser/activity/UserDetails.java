@@ -1,4 +1,4 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,10 +7,10 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -31,10 +31,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.arfeenkhan.registerationappforUser.Adapter.RecentAdapter;
-import com.arfeenkhan.registerationappforUser.Model.SignleCoachDataModel;
+import com.arfeenkhan.registerationappforUser.adapter.RecentAdapter;
+import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -63,7 +63,8 @@ public class UserDetails extends AppCompatActivity {
     RecyclerView eventPeople;
     ////end Widget
 
-    public static String user_details_url = "http://magicconversion.com/barcodescanner/eventpeopleinsert.php";
+//    public static String  user_details_url = "http://magicconversion.com/barcodescanner/eventpeopleinsert.php";
+    public static String  user_details_url = " http://magicconversion.com/api/index.php/Welcome/bulkdata ";
     String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
     public static String singleCoachDataUrl = "http://magicconversion.com/barcodescanner/singleuserdata.php";
     String getdatafromInfusionUrl = "http://magicconversion.com/barcodescanner/getcontact.php";

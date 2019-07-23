@@ -1,7 +1,14 @@
-package com.arfeenkhan.registerationappforUser.Model;
+package com.arfeenkhan.registerationappforUser.model;
 
 public class CityModel {
-   public String image,name;
+
+    String name;
+
+    public String image;
+
+
+    public CityModel() {
+    }
 
     public CityModel(String image, String name) {
         this.image = image;

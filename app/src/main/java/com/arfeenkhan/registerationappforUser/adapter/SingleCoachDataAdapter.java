@@ -1,21 +1,14 @@
-package com.arfeenkhan.registerationappforUser.Adapter;
+package com.arfeenkhan.registerationappforUser.adapter;
 
-import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import com.arfeenkhan.registerationappforUser.Model.CityModel;
-import com.arfeenkhan.registerationappforUser.Model.SignleCoachDataModel;
+import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
 
 import java.util.ArrayList;
 

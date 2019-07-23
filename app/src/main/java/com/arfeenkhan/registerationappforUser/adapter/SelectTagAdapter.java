@@ -1,24 +1,28 @@
-package com.arfeenkhan.registerationappforUser.Adapter;
+package com.arfeenkhan.registerationappforUser.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.arfeenkhan.registerationappforUser.Activity.ChooseCoachName;
-import com.arfeenkhan.registerationappforUser.Activity.UserDetails;
-import com.arfeenkhan.registerationappforUser.Activity.UserRegistertionActive;
-import com.arfeenkhan.registerationappforUser.Model.SelectTagModel;
+import com.arfeenkhan.registerationappforUser.activity.ChooseCoachName;
+import com.arfeenkhan.registerationappforUser.model.SelectTagModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 
 import java.util.ArrayList;
 
 public class SelectTagAdapter extends RecyclerView.Adapter<SelectTagAdapter.TagViewHolder> {
+
+    private static final int VIEW_TYPE_LOADING = 0;
+    private static final int VIEW_TYPE_NORMAL =1;
+    private boolean isLoaderVisible = false;
+
+
     Context ctx;
     ArrayList<SelectTagModel> list;
 
@@ -110,6 +114,13 @@ public class SelectTagAdapter extends RecyclerView.Adapter<SelectTagAdapter.TagV
             mdate = itemView.findViewById(R.id.mdate);
 
         }
+    }
+
+    public void setFilter(ArrayList<SelectTagModel> newList)
+    {
+        list = new ArrayList<>();
+        list.addAll(newList);
+        notifyDataSetChanged();
     }
 }
 

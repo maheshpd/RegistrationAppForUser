@@ -1,7 +1,7 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -1,4 +1,4 @@
-package com.arfeenkhan.registerationappforUser.Model;
+package com.arfeenkhan.registerationappforUser.model;
 
 public class SessionNameModel {
     String id;

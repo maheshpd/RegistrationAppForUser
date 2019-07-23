@@ -1,4 +1,4 @@
-package com.arfeenkhan.registerationappforUser.Utils;
+package com.arfeenkhan.registerationappforUser.utils;
 
 import android.content.Context;
 

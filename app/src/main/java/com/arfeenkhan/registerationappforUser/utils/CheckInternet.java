@@ -1,10 +1,9 @@
-package com.arfeenkhan.registerationappforUser.Utils;
+package com.arfeenkhan.registerationappforUser.utils;
 
 import android.app.Service;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
 public class CheckInternet {

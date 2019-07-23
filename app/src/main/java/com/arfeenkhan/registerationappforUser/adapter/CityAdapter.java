@@ -1,4 +1,4 @@
-package com.arfeenkhan.registerationappforUser.Adapter;
+package com.arfeenkhan.registerationappforUser.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.arfeenkhan.registerationappforUser.Model.CityModel;
 import com.arfeenkhan.registerationappforUser.R;
+import com.arfeenkhan.registerationappforUser.model.CityModel;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
 
 import java.util.ArrayList;
 

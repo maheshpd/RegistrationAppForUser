@@ -1,11 +1,15 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -15,11 +19,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.arfeenkhan.registerationappforUser.Adapter.CityAdapter;
-import com.arfeenkhan.registerationappforUser.Model.CityModel;
+import com.arfeenkhan.registerationappforUser.adapter.CityAdapter;
+import com.arfeenkhan.registerationappforUser.model.CityModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.CheckInternet;
-import com.arfeenkhan.registerationappforUser.Utils.MySingleton;
+import com.arfeenkhan.registerationappforUser.utils.CheckInternet;
+import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,12 +40,11 @@ public class CityName extends AppCompatActivity {
 
     StringRequest request;
     ProgressDialog progressDialog;
-
+    private RecyclerView cityRv;
 
     String getCity_url = "http://magicconversion.com/barcodescanner/selectcity.php";
 
     CheckInternet checkInternet;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,7 @@ public class CityName extends AppCompatActivity {
 
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
         cityView = findViewById(R.id.cityView);
+//        cityRv = findViewById(R.id.cityView);
 
         cityAdapter = new CityAdapter(this, citylist);
         cityView.setAdapter(cityAdapter);

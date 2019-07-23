@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.arfeenkhan.registerationappforUser">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,23 +17,24 @@
         android:roundIcon="@drawable/barcode"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".Activity.NewRegister"></activity>
-        <activity android:name=".Activity.ChooseCoachName" />
-        <activity android:name=".Activity.UserRegistertionActive" />
-        <activity android:name=".Activity.SingleCoachData" />
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".activity.NewRegister"></activity>
+        <activity android:name=".activity.ChooseCoachName" />
+        <activity android:name=".activity.UserRegistertionActive" />
+        <activity android:name=".activity.SingleCoachData" />
         <activity
-            android:name=".Activity.UserDetails"
+            android:name=".activity.UserDetails"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".Activity.SelectTag" />
-        <activity android:name=".Activity.CityName">
+        <activity android:name=".activity.SelectTag" />
+        <activity android:name=".activity.CityName">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" />
     </application>
 
 </manifest>

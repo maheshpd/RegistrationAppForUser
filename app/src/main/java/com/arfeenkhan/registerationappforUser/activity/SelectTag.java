@@ -1,15 +1,17 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
-import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.Gravity;
 import android.view.View;
-import android.widget.AbsListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -19,8 +21,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.arfeenkhan.registerationappforUser.Adapter.SelectTagAdapter;
-import com.arfeenkhan.registerationappforUser.Model.SelectTagModel;
+import com.arfeenkhan.registerationappforUser.adapter.SelectTagAdapter;
+import com.arfeenkhan.registerationappforUser.model.SelectTagModel;
 import com.arfeenkhan.registerationappforUser.R;
 
 import org.json.JSONArray;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SelectTag extends AppCompatActivity {
+public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
     RecyclerView tagRecycler;
     ArrayList<SelectTagModel> taglist;
@@ -48,7 +50,7 @@ public class SelectTag extends AppCompatActivity {
     Boolean isScrolling = false;
     int currentItem, totalItems, scrollOutItems;
     LinearLayoutManager llm;
-
+    SearchView search_view;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +61,9 @@ public class SelectTag extends AppCompatActivity {
         place = getIntent().getExtras().get("place").toString();
         getData();
 
+        search_view = findViewById(R.id.searchView);
+        search_view.setLayoutParams(new ActionBar.LayoutParams(Gravity.RIGHT));
+        search_view.setOnQueryTextListener(this);
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
         tagRecycler = findViewById(R.id.select_tags);
         tagAdapter = new SelectTagAdapter(this, taglist);
@@ -176,5 +181,42 @@ public class SelectTag extends AppCompatActivity {
 
         queue.add(sr);
 
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        getData();
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        ArrayList<SelectTagModel> newList = new ArrayList<>();
+        for (SelectTagModel tgm : taglist) {
+            String name = tgm.getName().toLowerCase();
+            String time = tgm.getTime().toLowerCase();
+            String ctf = tgm.getCtf().toLowerCase();
+            String tagno = tgm.getTagno().toLowerCase();
+            String date = tgm.getDate().toLowerCase();
+            if (name.contains(newText)) {
+                newList.add(tgm);
+            } else if (time.contains(newText)) {
+                newList.add(tgm);
+            } else if (ctf.contains(newText)) {
+                newList.add(tgm);
+            } else if (tagno.contains(newText)) {
+                newList.add(tgm);
+            } else if (date.contains(newText)) {
+                newList.add(tgm);
+            }
+        }
+        tagAdapter.setFilter(newList);
+        return true;
     }
 }

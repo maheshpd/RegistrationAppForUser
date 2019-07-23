@@ -1,8 +1,7 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -10,13 +9,12 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -26,9 +24,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.arfeenkhan.registerationappforUser.Model.SignleCoachDataModel;
-import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 import com.google.zxing.Result;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
@@ -46,9 +43,9 @@ import java.util.Map;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission.CAMERA;
-import static com.arfeenkhan.registerationappforUser.Activity.UserDetails.record;
-import static com.arfeenkhan.registerationappforUser.Activity.UserDetails.singleCoachDataUrl;
-import static com.arfeenkhan.registerationappforUser.Activity.UserDetails.user_details_url;
+import static com.arfeenkhan.registerationappforUser.activity.UserDetails.record;
+import static com.arfeenkhan.registerationappforUser.activity.UserDetails.singleCoachDataUrl;
+import static com.arfeenkhan.registerationappforUser.activity.UserDetails.user_details_url;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -205,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     }
 
     private void showMessageOKCancel(final String message, DialogInterface.OnClickListener okListener) {
-        new android.support.v7.app.AlertDialog.Builder(MainActivity.this)
+        new androidx.appcompat.app.AlertDialog.Builder(MainActivity.this)
                 .setMessage(message)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

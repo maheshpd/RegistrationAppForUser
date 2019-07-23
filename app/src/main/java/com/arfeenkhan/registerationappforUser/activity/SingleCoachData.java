@@ -1,11 +1,9 @@
-package com.arfeenkhan.registerationappforUser.Activity;
+package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.widget.GridView;
 import android.widget.TextView;
 
@@ -16,10 +14,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.arfeenkhan.registerationappforUser.Adapter.SingleCoachDataAdapter;
-import com.arfeenkhan.registerationappforUser.Model.SignleCoachDataModel;
+import com.arfeenkhan.registerationappforUser.adapter.SingleCoachDataAdapter;
+import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 
 import org.json.JSONArray;
 import org.json.JSONException;

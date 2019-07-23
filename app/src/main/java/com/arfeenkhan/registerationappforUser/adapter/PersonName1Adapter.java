@@ -1,18 +1,18 @@
-package com.arfeenkhan.registerationappforUser.Adapter;
+package com.arfeenkhan.registerationappforUser.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.arfeenkhan.registerationappforUser.Activity.UserRegistertionActive;
-import com.arfeenkhan.registerationappforUser.Model.SessionNameModel;
+import com.arfeenkhan.registerationappforUser.activity.UserRegistertionActive;
+import com.arfeenkhan.registerationappforUser.model.SessionNameModel;
 import com.arfeenkhan.registerationappforUser.R;
-import com.arfeenkhan.registerationappforUser.Utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 
 import java.util.ArrayList;
 
