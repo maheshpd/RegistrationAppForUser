@@ -23,6 +23,7 @@ import com.arfeenkhan.registerationappforUser.adapter.CityAdapter;
 import com.arfeenkhan.registerationappforUser.model.CityModel;
 import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.CheckInternet;
+import com.arfeenkhan.registerationappforUser.utils.Common;
 import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.json.JSONArray;
@@ -40,9 +41,6 @@ public class CityName extends AppCompatActivity {
 
     StringRequest request;
     ProgressDialog progressDialog;
-    private RecyclerView cityRv;
-
-    String getCity_url = "http://magicconversion.com/barcodescanner/selectcity.php";
 
     CheckInternet checkInternet;
     @Override
@@ -50,12 +48,10 @@ public class CityName extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_city_name);
 
-//        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         progressDialog = new ProgressDialog(this);
 
         swipeRefreshLayout = findViewById(R.id.swipeLayout);
         cityView = findViewById(R.id.cityView);
-//        cityRv = findViewById(R.id.cityView);
 
         cityAdapter = new CityAdapter(this, citylist);
         cityView.setAdapter(cityAdapter);
@@ -91,7 +87,7 @@ public class CityName extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         citylist.clear();
-        request = new StringRequest(Request.Method.GET, getCity_url, new Response.Listener<String>() {
+        request = new StringRequest(Request.Method.GET, Common.getCity_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

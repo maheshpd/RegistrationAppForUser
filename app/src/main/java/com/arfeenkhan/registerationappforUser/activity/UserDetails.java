@@ -7,10 +7,12 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,6 +37,7 @@ import com.arfeenkhan.registerationappforUser.adapter.RecentAdapter;
 import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
 import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -63,34 +66,25 @@ public class UserDetails extends AppCompatActivity {
     RecyclerView eventPeople;
     ////end Widget
 
-//    public static String  user_details_url = "http://magicconversion.com/barcodescanner/eventpeopleinsert.php";
-    public static String  user_details_url = " http://magicconversion.com/api/index.php/Welcome/bulkdata ";
-    String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
-    public static String singleCoachDataUrl = "http://magicconversion.com/barcodescanner/singleuserdata.php";
-    String getdatafromInfusionUrl = "http://magicconversion.com/barcodescanner/getcontact.php";
-    String allocationNum = "http://magicconversion.com/barcodescanner/getallocation.php";
-    StringRequest sessionrequest, request;
     ArrayList<String> sessionlist = new ArrayList<>();
     public static ArrayList<SignleCoachDataModel> record = new ArrayList<>();
     //Array List
 
-    ArrayAdapter<String> allocationadapter;
     ArrayList<String> no0fpeoplelist = new ArrayList<>();
     /////start infusion
     public String key;
     public XmlRpcClient client;
     public Object[] contacts;
     public static List parameters, parameters2, parameters3, fields;
-    public static Map contactData, contact;
+    public static Map contactData;
     boolean success = false;
     //End infusion
 
     DateFormat sdf;
-    String allocationname;
     TextView tagsNo, totalNo, placename;
     ImageButton barcode_btn;
     public static RecentAdapter adapter;
-
+    StringRequest sessionrequest;
 
     SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences preferences;
@@ -238,8 +232,7 @@ public class UserDetails extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, getdatafromInfusionUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.getdatafromInfusionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -274,13 +267,12 @@ public class UserDetails extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     private void getSessionName() {
-        RequestQueue queue = Volley.newRequestQueue(this);
         sessionlist.clear();
-        sessionrequest = new StringRequest(Request.Method.POST, sessionUrl, new Response.Listener<String>() {
+        sessionrequest = new StringRequest(Request.Method.POST, Common.sessionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -309,13 +301,12 @@ public class UserDetails extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(sessionrequest);
+        MySingleton.getmInstance(this).addToRequestque(sessionrequest);
     }
 
     private void uploadFile() {
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, user_details_url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.user_details_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -362,7 +353,7 @@ public class UserDetails extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     class DB_Conn extends AsyncTask<String, Void, String> {
@@ -499,8 +490,7 @@ public class UserDetails extends AppCompatActivity {
 
     private void getData() {
         no0fpeoplelist.clear();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, singleCoachDataUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.singleCoachDataUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -532,15 +522,13 @@ public class UserDetails extends AppCompatActivity {
                 return param;
             }
         };
-
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     private void SingleData() {
 
         record.clear();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, singleCoachDataUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.singleCoachDataUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -584,13 +572,11 @@ public class UserDetails extends AppCompatActivity {
                 return param;
             }
         };
-
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     public void getAllocationNum() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, allocationNum, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.allocationNum, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -626,8 +612,7 @@ public class UserDetails extends AppCompatActivity {
                 return param;
             }
         };
-
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     @Override

@@ -5,7 +5,9 @@ import android.app.ProgressDialog;
 import androidx.appcompat.app.ActionBar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,6 +26,8 @@ import com.android.volley.toolbox.Volley;
 import com.arfeenkhan.registerationappforUser.adapter.SelectTagAdapter;
 import com.arfeenkhan.registerationappforUser.model.SelectTagModel;
 import com.arfeenkhan.registerationappforUser.R;
+import com.arfeenkhan.registerationappforUser.utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -51,6 +55,7 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
     int currentItem, totalItems, scrollOutItems;
     LinearLayoutManager llm;
     SearchView search_view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,55 +86,15 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
             }
         });
 
-//        tagRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-//                super.onScrollStateChanged(recyclerView, newState);
-//
-//                if (newState == AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL) {
-//                    isScrolling = true;
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-//                super.onScrolled(recyclerView, dx, dy);
-//                currentItem = llm.getChildCount();
-//                totalItems = llm.getItemCount();
-//                scrollOutItems = llm.findFirstVisibleItemPosition();
-//
-//                if (isScrolling && (currentItem + scrollOutItems == totalItems)) {
-//                    isScrolling = false;
-//                    fetchData();
-//                }
-//            }
-//        });
-
 
     }
-
-//    private void fetchData() {
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                for (int i = 0; i < 20; i++) {
-//                    loadingTxt.setVisibility(View.VISIBLE);
-//                    getData();
-//                    tagAdapter.notifyDataSetChanged();
-//                }
-//            }
-//        }, 4000);
-//    }
 
     private void getData() {
         progressDialog.setMessage("Please wait...");
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         taglist.clear();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, data_url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.gettag_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -153,12 +118,6 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
 
                     }
 
-//                    JSONObject c1=arr.getJSONObject(0);
-//                    String message = c1.getString("message");
-//
-////                    String message = c.getString("message");
-//                    Toast.makeText(SelectTags.this, message, Toast.LENGTH_SHORT).show();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -177,10 +136,7 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
 
             }
         };
-
-
-        queue.add(sr);
-
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -18,6 +20,7 @@ import com.arfeenkhan.registerationappforUser.adapter.SingleCoachDataAdapter;
 import com.arfeenkhan.registerationappforUser.model.SignleCoachDataModel;
 import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +34,6 @@ public class SingleCoachData extends AppCompatActivity {
 
     //    private RecyclerView singleCoachData;
     private TextView textView;
-    private String singleCoachDataUrl = "http://magicconversion.com/barcodescanner/singleuserdata.php";
     private SingleCoachDataAdapter adapter;
     private ArrayList<SignleCoachDataModel> list = new ArrayList<>();
     ProgressDialog mdialog;
@@ -72,8 +74,8 @@ public class SingleCoachData extends AppCompatActivity {
         mdialog.setCanceledOnTouchOutside(false);
         mdialog.show();
         list.clear();
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, singleCoachDataUrl, new Response.Listener<String>() {
+
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.singleCoachDataUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -114,7 +116,6 @@ public class SingleCoachData extends AppCompatActivity {
                 return param;
             }
         };
-
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 }

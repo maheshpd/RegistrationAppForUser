@@ -18,6 +18,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.Common;
+import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,8 +37,6 @@ public class NewRegister extends AppCompatActivity {
     String sname, semail, sphone;
     ProgressDialog dialog;
     StringRequest sessionrequest;
-    String allocationNum = "http://magicconversion.com/barcodescanner/getallocation.php";
-    String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
     ArrayList<String> sessionlist = new ArrayList<>();
 
     @Override
@@ -85,9 +84,7 @@ public class NewRegister extends AppCompatActivity {
     }
 
     private void uploadFile() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String newRegisterUrl = "http://magicconversion.com/barcodescanner/getregister.php";
-        StringRequest sr = new StringRequest(Request.Method.POST, newRegisterUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.newRegisterUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 JSONArray arr = null;
@@ -124,12 +121,11 @@ public class NewRegister extends AppCompatActivity {
                 return param;
             }
         };
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     public void getAllocationNum() {
-        RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, allocationNum, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.allocationNum, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -165,14 +161,12 @@ public class NewRegister extends AppCompatActivity {
                 return param;
             }
         };
-
-        queue.add(sr);
+        MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
     private void getSessionName() {
-        RequestQueue queue = Volley.newRequestQueue(this);
         sessionlist.clear();
-        sessionrequest = new StringRequest(Request.Method.POST, sessionUrl, new Response.Listener<String>() {
+        sessionrequest = new StringRequest(Request.Method.POST, Common.sessionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -201,6 +195,6 @@ public class NewRegister extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(sessionrequest);
+        MySingleton.getmInstance(this).addToRequestque(sessionrequest);
     }
 }

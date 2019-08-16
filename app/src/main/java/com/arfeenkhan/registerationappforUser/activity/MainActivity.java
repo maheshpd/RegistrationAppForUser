@@ -44,8 +44,6 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 import static android.Manifest.permission.CAMERA;
 import static com.arfeenkhan.registerationappforUser.activity.UserDetails.record;
-import static com.arfeenkhan.registerationappforUser.activity.UserDetails.singleCoachDataUrl;
-import static com.arfeenkhan.registerationappforUser.activity.UserDetails.user_details_url;
 
 public class MainActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
 
@@ -121,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
         record.clear();
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, singleCoachDataUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.singleCoachDataUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -521,7 +519,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     private void InsertDataInGodaddy() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, user_details_url, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.user_details_url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
