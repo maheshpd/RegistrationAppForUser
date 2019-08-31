@@ -33,7 +33,7 @@ public class ChooseCoachName extends AppCompatActivity {
     ArrayList<SessionNameModel> sessionlist = new ArrayList<>();
     PersonName1Adapter personName1Adapter;
     RecyclerView sessionRecycler;
-    String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +59,7 @@ public class ChooseCoachName extends AppCompatActivity {
         progressDialog.show();
         RequestQueue queue = Volley.newRequestQueue(this);
         sessionlist.clear();
-        sessionrequest = new StringRequest(Request.Method.POST, sessionUrl, new Response.Listener<String>() {
+        sessionrequest = new StringRequest(Request.Method.POST, Common.sessionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {

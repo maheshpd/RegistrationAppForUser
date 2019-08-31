@@ -21,7 +21,6 @@ public class PersonName1Adapter extends RecyclerView.Adapter<PersonName1Adapter.
     Context context;
     private int highlightItem = 0;
 
-    String delete_allocation_name = "http://magicconversion.com/barcodescanner/deleteAllocationName.php";
 
     public PersonName1Adapter(ArrayList<SessionNameModel> list, Context context) {
         this.list = list;

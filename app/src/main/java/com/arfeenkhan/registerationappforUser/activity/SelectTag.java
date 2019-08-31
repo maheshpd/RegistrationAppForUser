@@ -1,31 +1,24 @@
 package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
-
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.Gravity;
-import android.view.View;
-import android.widget.SearchView;
-import android.widget.TextView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.adapter.SelectTagAdapter;
 import com.arfeenkhan.registerationappforUser.model.SelectTagModel;
-import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.Common;
 import com.arfeenkhan.registerationappforUser.utils.MySingleton;
 
@@ -42,17 +35,12 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
     RecyclerView tagRecycler;
     ArrayList<SelectTagModel> taglist;
     SelectTagAdapter tagAdapter;
-    TextView loadingTxt;
-    String data_url = "http://magicconversion.com/barcodescanner/tagdata.php";
 
     StringRequest request;
     ProgressDialog progressDialog;
 
     String place;
 
-    SwipeRefreshLayout swipeRefreshLayout;
-    Boolean isScrolling = false;
-    int currentItem, totalItems, scrollOutItems;
     LinearLayoutManager llm;
     SearchView search_view;
 
@@ -67,24 +55,14 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
         getData();
 
         search_view = findViewById(R.id.searchView);
-        search_view.setLayoutParams(new ActionBar.LayoutParams(Gravity.RIGHT));
         search_view.setOnQueryTextListener(this);
-        swipeRefreshLayout = findViewById(R.id.swipeLayout);
         tagRecycler = findViewById(R.id.select_tags);
         tagAdapter = new SelectTagAdapter(this, taglist);
-        loadingTxt = findViewById(R.id.loading_text);
         llm = new LinearLayoutManager(this);
         tagRecycler.setLayoutManager(llm);
         tagRecycler.setAdapter(tagAdapter);
         tagRecycler.setHasFixedSize(true);
         tagAdapter.notifyDataSetChanged();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getData();
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
 
 
     }
@@ -113,7 +91,6 @@ public class SelectTag extends AppCompatActivity implements SearchView.OnQueryTe
                         SelectTagModel stm = new SelectTagModel(name, place, tag, time, ctf, date, tf, sessionname);
                         taglist.add(stm);
                         progressDialog.dismiss();
-                        loadingTxt.setVisibility(View.INVISIBLE);
                         tagAdapter.notifyDataSetChanged();
 
                     }

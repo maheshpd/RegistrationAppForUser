@@ -63,10 +63,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     //    private JsonArrayRequest data_request;
     private StringRequest data_request;
-    String data_url = "http://magicconversion.com/barcodescanner/tagdata.php";
-    String insert_data_into_bluehost = "http://magicconversion.com/barcodescanner/barcodeinsert.php";
-    String getdatafromInfusionUrl = "http://magicconversion.com/barcodescanner/getcontact.php";
-    String sessionUrl = "http://magicconversion.com/barcodescanner/getSessionName.php";
+
     //current Time
     String timeStamp;
 
@@ -382,7 +379,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
     private void getSessionName() {
         RequestQueue queue = Volley.newRequestQueue(this);
         sessionlist.clear();
-        sessionrequest = new StringRequest(Request.Method.POST, sessionUrl, new Response.Listener<String>() {
+        sessionrequest = new StringRequest(Request.Method.POST, Common.sessionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
@@ -482,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
 
     public void getDataFromInfusion() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest sr = new StringRequest(Request.Method.POST, getdatafromInfusionUrl, new Response.Listener<String>() {
+        StringRequest sr = new StringRequest(Request.Method.POST, Common.getdatafromInfusionUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
