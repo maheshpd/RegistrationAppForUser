@@ -100,7 +100,7 @@ public class ChooseCoachName extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tagno", Common.tagno);
+                params.put("propertyname", Common.tagno);
                 return params;
             }
         };

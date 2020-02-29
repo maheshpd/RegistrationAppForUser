@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("tagno", Common.tagno);
+                param.put("propertyname", Common.tagno);
                 return param;
             }
         };
@@ -406,7 +406,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tagno", Common.tagno);
+                params.put("propertyname", Common.tagno);
                 return params;
             }
         };
@@ -544,7 +544,7 @@ public class MainActivity extends AppCompatActivity implements ZXingScannerView.
                 params.put("dt", Common.timeStamp);
                 params.put("tm", Common.eventTimes);
                 params.put("coachname", Common.allocationname);
-                params.put("tagno", Common.tagno);
+                params.put("propertyname", Common.tagno);
                 params.put("allocation", String.valueOf(Common.sessionValue));
                 return params;
             }

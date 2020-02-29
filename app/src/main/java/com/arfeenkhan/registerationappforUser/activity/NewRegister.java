@@ -112,11 +112,10 @@ public class NewRegister extends AppCompatActivity {
                 param.put("name", sname);
                 param.put("email", semail);
                 param.put("phone", sphone);
-                param.put("tagno", Common.tagno);
+                param.put("propertyname", Common.tagno);
                 param.put("dt", Common.timeStamp);
                 param.put("tm", Common.eventTimes);
                 param.put("coachname", Common.allocationname);
-                param.put("tagno", Common.tagno);
                 param.put("allocation", String.valueOf(Common.sessionValue));
                 return param;
             }
@@ -157,7 +156,7 @@ public class NewRegister extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> param = new HashMap<>();
-                param.put("tagno", Common.tagno);
+                param.put("propertyname", Common.tagno);
                 return param;
             }
         };
@@ -191,7 +190,7 @@ public class NewRegister extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("tagno", Common.tagno);
+                params.put("propertyname", Common.tagno);
                 return params;
             }
         };
