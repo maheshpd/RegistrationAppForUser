@@ -1,30 +1,29 @@
 package com.arfeenkhan.registerationappforUser.activity;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.adapter.CityAdapter;
 import com.arfeenkhan.registerationappforUser.model.CityModel;
-import com.arfeenkhan.registerationappforUser.R;
 import com.arfeenkhan.registerationappforUser.utils.CheckInternet;
 import com.arfeenkhan.registerationappforUser.utils.Common;
 import com.arfeenkhan.registerationappforUser.utils.MySingleton;
+import com.arfeenkhan.registerationappforUser.utils.UpdateHelper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CityName extends AppCompatActivity {
+public class CityName extends AppCompatActivity implements UpdateHelper.OnUpdateCheckListener {
 
     SwipeRefreshLayout swipeRefreshLayout;
     GridView cityView;
@@ -60,6 +59,11 @@ public class CityName extends AppCompatActivity {
         checkInternet = new CheckInternet(this);
         if (checkInternet.isConnected()) {
             getCityData();
+
+            UpdateHelper.with(CityName.this)
+                    .onUpdateCheck(CityName.this)
+                    .check();
+
         } else {
             Toast.makeText(this, "No Internet", Toast.LENGTH_SHORT).show();
         }
@@ -114,5 +118,25 @@ public class CityName extends AppCompatActivity {
         });
 
         MySingleton.getmInstance(this).addToRequestque(request);
+    }
+
+    @Override
+    public void onUpdateCheckListener(String urlApp) {
+        //Create Alert Dialog for Update
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setTitle("New Version Available")
+                .setMessage("Please update to new version to continue use")
+                .setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(CityName.this, "", Toast.LENGTH_SHORT).show();
+                    }
+                }).setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(CityName.this, "Thanks", Toast.LENGTH_SHORT).show();
+                    }
+                }).create();
+        alertDialog.show();
     }
 }
