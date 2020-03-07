@@ -3,6 +3,7 @@ package com.arfeenkhan.registerationappforUser.activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -121,7 +122,7 @@ public class CityName extends AppCompatActivity implements UpdateHelper.OnUpdate
     }
 
     @Override
-    public void onUpdateCheckListener(String urlApp) {
+    public void onUpdateCheckListener(final String urlApp) {
         //Create Alert Dialog for Update
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setTitle("New Version Available")
@@ -129,7 +130,7 @@ public class CityName extends AppCompatActivity implements UpdateHelper.OnUpdate
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        Toast.makeText(CityName.this, "", Toast.LENGTH_SHORT).show();
+                        redirectStore(urlApp);
                     }
                 }).setNegativeButton("No Thanks", new DialogInterface.OnClickListener() {
                     @Override
@@ -138,5 +139,11 @@ public class CityName extends AppCompatActivity implements UpdateHelper.OnUpdate
                     }
                 }).create();
         alertDialog.show();
+    }
+
+    private void redirectStore(String updateUrl) {
+        final Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(updateUrl));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }
