@@ -322,7 +322,7 @@ public class UserDetails extends AppCompatActivity {
                     if (message.equals("User Already Exists")) {
                         Log.d(TAG, "onResponse: " + "User already Exists");
                     } else {
-                        insertData();
+//                        insertData();
                         getData();
                         SingleData();
 
@@ -333,6 +333,7 @@ public class UserDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+            //123564724
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
