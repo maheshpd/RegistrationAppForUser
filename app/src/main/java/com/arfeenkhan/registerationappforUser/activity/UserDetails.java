@@ -186,9 +186,9 @@ public class UserDetails extends AppCompatActivity {
             }
         });
 
-        DB_Conn conn = new DB_Conn();
-        conn.execute();
-        conn.doInBackground();
+//        DB_Conn conn = new DB_Conn();
+//        conn.execute();
+//        conn.doInBackground();
 
         barcode_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -322,6 +322,7 @@ public class UserDetails extends AppCompatActivity {
                     if (message.equals("User Already Exists")) {
                         Log.d(TAG, "onResponse: " + "User already Exists");
                     } else {
+
 //                        insertData();
                         getData();
                         SingleData();
@@ -333,7 +334,7 @@ public class UserDetails extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            //123564724
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -357,137 +358,137 @@ public class UserDetails extends AppCompatActivity {
         MySingleton.getmInstance(this).addToRequestque(sr);
     }
 
-    class DB_Conn extends AsyncTask<String, Void, String> {
-        @Override
-        public String doInBackground(String... arg)//compulsory to implement
-        {
-            String s = "";
-            try {
-                //Sets up the java client, including the api url
-                XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
-                config.setServerURL(new URL("https://ad129.infusionsoft.com:443/api/xmlrpc"));
-                client = new XmlRpcClient();
-                client.setConfig(config);
+//    class DB_Conn extends AsyncTask<String, Void, String> {
+//        @Override
+//        public String doInBackground(String... arg)//compulsory to implement
+//        {
+//            String s = "";
+//            try {
+//                //Sets up the java client, including the api url
+//                XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
+//                config.setServerURL(new URL("https://ad129.infusionsoft.com:443/api/xmlrpc"));
+//                client = new XmlRpcClient();
+//                client.setConfig(config);
+//
+//                //The secure encryption key
+//                key = "e76b428d25a0c1c740b868a66323a2cc";
+//
+//                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                StrictMode.setThreadPolicy(policy);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//            return s;
+//        }
+//
+//
+//        @Override
+//        public void onProgressUpdate(Void... arg0) {
+//        }
+//
+//        @Override
+//        public void onPostExecute(String result) {
+//
+//        }
+//
+//        @Override
+//        public void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//    }
 
-                //The secure encryption key
-                key = "e76b428d25a0c1c740b868a66323a2cc";
+//    private void insertData() {
+//        progressDialog.setTitle("Scann No");
+//        progressDialog.setMessage("Please wait a moment");
+//        progressDialog.setCanceledOnTouchOutside(false);
+//        progressDialog.show();
+//
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//                    StrictMode.setThreadPolicy(policy);
+//
+//                    //List All Contacts in Group
+//                    fields = new ArrayList(); //What fields we will be selecting
+//                    fields.add("Id");
+//
+//                    parameters3 = new ArrayList();
+//                    parameters3.add(key); //Secure key
+//                    parameters3.add("Contact");  //What table we are looking in
+//                    parameters3.add(1000); //How many records to return
+//                    parameters3.add(0); //Which page of results to display
+//                    parameters3.add("Groups"); //The field we are querying on
+//                    parameters3.add(sid); //THe data to query on
+//                    parameters3.add(fields); //what fields to select on return
+//
+//                    addContact();
+//                    //Make call - the result is an array of structs
+//                    contacts = (Object[]) client.execute("DataService.findByField", parameters3);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }).start();
+//    }
 
-                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                StrictMode.setThreadPolicy(policy);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return s;
-        }
-
-
-        @Override
-        public void onProgressUpdate(Void... arg0) {
-        }
-
-        @Override
-        public void onPostExecute(String result) {
-
-        }
-
-        @Override
-        public void onPreExecute() {
-            super.onPreExecute();
-        }
-    }
-
-    private void insertData() {
-        progressDialog.setTitle("Scann No");
-        progressDialog.setMessage("Please wait a moment");
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.show();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-                    StrictMode.setThreadPolicy(policy);
-
-                    //List All Contacts in Group
-                    fields = new ArrayList(); //What fields we will be selecting
-                    fields.add("Id");
-
-                    parameters3 = new ArrayList();
-                    parameters3.add(key); //Secure key
-                    parameters3.add("Contact");  //What table we are looking in
-                    parameters3.add(1000); //How many records to return
-                    parameters3.add(0); //Which page of results to display
-                    parameters3.add("Groups"); //The field we are querying on
-                    parameters3.add(sid); //THe data to query on
-                    parameters3.add(fields); //what fields to select on return
-
-                    addContact();
-                    //Make call - the result is an array of structs
-                    contacts = (Object[]) client.execute("DataService.findByField", parameters3);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    private void addContact() {
-        try {
-            /*************************************************
-             *                                               *
-             ADD CONTACT TO DATABASE
-             *                                               *
-             *************************************************/
-
-            parameters = new ArrayList();
-            contactData = new HashMap();
-            contactData.put("Id", sid);
-
-
-            parameters.add(key); //The secure key
-            parameters.add("Contact"); //The table we will be adding to
-            parameters.add(contactData); //The data to be added
-
-
-            /*************************************************
-             *                                               *
-             ADD CONTACT TO GROUP
-             *                                               *
-             *************************************************/
-            parameters2 = new ArrayList();
-            parameters2.add(key); //Secure key
-            parameters2.add(sid); //Id of the contact we just added
-            parameters2.add(Common.tagno); //Id of the group we want to add to
-
-            success = (Boolean) client.execute("ContactService.addToGroup", parameters2);
-            success = true;
-
-            try {
-                if (success) {
-                    progressDialog.dismiss();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(UserDetails.this, "Data  save", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            progressDialog.dismiss();
-                            Toast.makeText(UserDetails.this, "Data not save", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void addContact() {
+//        try {
+//            /*************************************************
+//             *                                               *
+//             ADD CONTACT TO DATABASE
+//             *                                               *
+//             *************************************************/
+//
+//            parameters = new ArrayList();
+//            contactData = new HashMap();
+//            contactData.put("Id", sid);
+//
+//
+//            parameters.add(key); //The secure key
+//            parameters.add("Contact"); //The table we will be adding to
+//            parameters.add(contactData); //The data to be added
+//
+//
+//            /*************************************************
+//             *                                               *
+//             ADD CONTACT TO GROUP
+//             *                                               *
+//             *************************************************/
+//            parameters2 = new ArrayList();
+//            parameters2.add(key); //Secure key
+//            parameters2.add(sid); //Id of the contact we just added
+//            parameters2.add(Common.tagno); //Id of the group we want to add to
+//
+//            success = (Boolean) client.execute("ContactService.addToGroup", parameters2);
+//            success = true;
+//
+//            try {
+//                if (success) {
+//                    progressDialog.dismiss();
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Toast.makeText(UserDetails.this, "Data  save", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                } else {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            progressDialog.dismiss();
+//                            Toast.makeText(UserDetails.this, "Data not save", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void getData() {
         no0fpeoplelist.clear();

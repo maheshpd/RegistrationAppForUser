@@ -23,7 +23,7 @@ public class App extends Application {
         Map<String, Object> defaultValue = new HashMap<>();
         defaultValue.put(UpdateHelper.KEY_UPDATE_ENABLE, false);
         defaultValue.put(UpdateHelper.KEY_UPDATE_VERSION, "1.0");
-        defaultValue.put(UpdateHelper.KEY_UPDATE_URL, "your app url on App Store");
+        defaultValue.put(UpdateHelper.KEY_UPDATE_URL, "https://play.google.com/store/apps/details?id=com.arfeenkhan.registerationappforUser");
 
         remoteConfig.setDefaults(defaultValue);
         remoteConfig.fetch(60) //fetch data from Firebase every 1 minute

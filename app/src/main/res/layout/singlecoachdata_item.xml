@@ -32,7 +32,6 @@
                 android:text="Coach Name"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
-                android:visibility="invisible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
